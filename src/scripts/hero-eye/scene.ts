@@ -13,8 +13,10 @@ import {
   CanvasTexture,
   CatmullRomCurve3,
   Color,
+  DirectionalLight,
   EquirectangularReflectionMapping,
   Group,
+  HemisphereLight,
   Mesh,
   MeshStandardMaterial,
   PerspectiveCamera,
@@ -157,6 +159,14 @@ export class HeroEyeScene {
     this.eye.add(rim, echo, ring, this.glow, this.core);
     this.eye.scale.setScalar(1.08);
     this.scene.add(this.eye);
+
+    // Lights guarantee the brass reads dimensional even where the env map is
+    // subtle: a warm key highlight, a cool rim, and a soft sky/ground fill.
+    const key = new DirectionalLight(0xfff2e0, 2.2);
+    key.position.set(2.5, 3, 4);
+    const rimLight = new DirectionalLight(0x8fb4ff, 0.8);
+    rimLight.position.set(-3, -1.5, 2);
+    this.scene.add(key, rimLight, new HemisphereLight(0xcfd8e3, 0x0a0d11, 0.5));
 
     this.ro = new ResizeObserver(() => this.resize());
     this.ro.observe(container);
