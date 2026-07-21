@@ -31,9 +31,23 @@ function initReveals(): void {
         obs.unobserve(e.target);
       });
     },
-    { threshold: 0.2, rootMargin: '0px 0px -8% 0px' },
+    // threshold 0 fires as soon as any part enters — reliable even for sections
+    // taller than the viewport (a ratio-based threshold can never be reached
+    // there). The negative bottom margin triggers the reveal a little into view.
+    { threshold: 0, rootMargin: '0px 0px -12% 0px' },
   );
   targets.forEach((t) => io.observe(t));
+
+  // Backstop: anything scrolled into/near view that the observer somehow misses
+  // still reveals, so a section can never be stranded hidden.
+  window.setTimeout(() => {
+    const vh = window.innerHeight;
+    targets.forEach((t) => {
+      if (!t.classList.contains('is-in') && t.getBoundingClientRect().top < vh * 0.9) {
+        t.classList.add('is-in');
+      }
+    });
+  }, 1200);
 }
 
 function initDock(): void {

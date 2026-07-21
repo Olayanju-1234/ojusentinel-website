@@ -244,7 +244,8 @@ html.js:not(.reduced) .oju-reveal {
     transform 0.5s ease;
   will-change: opacity, transform;
 }
-.oju-reveal.is-in {
+/* Must match the hidden rule's specificity (0,3,1) + .is-in so it actually wins. */
+html.js:not(.reduced) .oju-reveal.is-in {
   opacity: 1;
   transform: none;
 }
