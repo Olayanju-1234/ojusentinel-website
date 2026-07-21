@@ -1,0 +1,11 @@
+name = "ojusentinel-website"
+compatibility_date = "2026-07-21"
+
+# Static Astro output. Functions in ./functions are auto-detected by Pages.
+pages_build_output_dir = "dist"
+
+# Enables:  wrangler pages dev dist   (local, WITH the /api/report Function)
+#           wrangler pages deploy     (deploy the built output)
+#
+# Set REPORT_DESTINATION in the Pages project (Settings → Variables), not here,
+# so the lead sink isn't committed. See functions/api/report.ts.
