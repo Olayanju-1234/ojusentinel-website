@@ -1,10 +1,10 @@
 # OjuSentinel — marketing site
 
-Anti-piracy intelligence for African music and film. Static-first marketing site
-built for performance on mid-range Android over patchy mobile data.
+Anti-piracy intelligence for music and film. Static-first marketing site built
+for performance on mid-range devices over slow connections.
 
-`oju` = **eye** (Yorùbá). The vesica "eye" — two overlapping circles whose
-intersection is a verified match — is the whole identity system.
+The vesica "eye" — two overlapping circles whose intersection is a verified
+match — is the whole identity system.
 
 ## Stack
 

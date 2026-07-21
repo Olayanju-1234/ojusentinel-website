@@ -7,7 +7,7 @@
 */
 import { setIris } from './eye';
 
-const CLOCKS = ['21:52 WAT — SWEEP', '22:00 WAT — REVIEW', '22:04 WAT — NOTICE'];
+const CLOCKS = ['21:52 — SWEEP', '22:00 — REVIEW', '22:04 — NOTICE'];
 
 export function initCaseFile(): void {
   const root = document.querySelector<HTMLElement>('[data-casefile]');
