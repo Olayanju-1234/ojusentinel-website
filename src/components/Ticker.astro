@@ -1,0 +1,43 @@
+---
+/*
+  DEMO ticker — leads with the honesty label, verbatim. Two identical copies scroll
+  as one seamless loop (os-tick); the duplicate is aria-hidden so AT reads it once.
+  Under prefers-reduced-motion the animation stops (global guard) and the first
+  items sit still and readable.
+*/
+type Item = { text: string; color?: 'watch' | 'alert'; dot?: boolean };
+
+const items: Item[] = [
+  { text: 'DEMO FEED — ILLUSTRATIVE, NOT LIVE', color: 'watch', dot: true },
+  { text: 'SWEEP #48,211 COMPLETE · NOTHING NEW ON 58 SOURCES' },
+  { text: 'SUSPECT LOGGED · T.ME CHANNEL · 41,208 MEMBERS', color: 'alert' },
+  { text: 'MATCH VERIFIED 96.4% · HUMAN-CHECKED' },
+  { text: 'NOTICE SENT · EVIDENCE PACK ATTACHED' },
+  { text: 'REMOVAL VERIFIED BY RE-SCAN', color: 'watch' },
+  { text: 'THEATRICAL WINDOW: PRIORITY SWEEPS ACTIVE' },
+];
+
+const colorVar = (c?: 'watch' | 'alert') => (c ? `color:var(--${c})` : undefined);
+---
+
+<div class="overflow-hidden border-t border-line bg-s1">
+  <div class="flex w-max animate-[os-tick_36s_linear_infinite] py-[11px]">
+    {
+      [0, 1].map((copy) => (
+        <ul
+          class="m-0 flex list-none gap-[38px] px-[19px] font-mono text-[11px] tracking-[0.1em] text-mut"
+          style="white-space:nowrap"
+          aria-hidden={copy === 1 ? 'true' : undefined}
+        >
+          {items.map((it) => (
+            <li style={colorVar(it.color)}>
+              {it.dot && <span style="color:var(--watch)">●</span>}
+              {it.dot ? ' ' : ''}
+              {it.text}
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>

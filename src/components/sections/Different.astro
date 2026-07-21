@@ -1,0 +1,80 @@
+---
+import Icon from '../vector/Icon.astro';
+
+const rows = [
+  {
+    n: '01',
+    title: 'Built where piracy actually lives',
+    desc: 'Telegram channels and African download sites first — not an afterthought region on a Western tool. The eye watches where your audience is.',
+    icon: 'sources' as const,
+  },
+  {
+    n: '02',
+    title: 'Intelligence before invoice',
+    desc: 'Your first piracy report is free — see exactly what we find on your catalogue, graded by severity, before you sign anything.',
+    icon: 'sweep' as const,
+  },
+  {
+    n: '03',
+    title: 'Reported ≠ Removed',
+    desc: 'Most services stop at “we sent a notice.” Our states tell you which is which — Sent, Acknowledged, Awaiting, Removed, Escalated — and removals are verified by re-scan before we call them done.',
+    badges: true,
+  },
+];
+---
+
+<section class="border-b border-line">
+  <div class="oju-reveal mx-auto max-w-[1200px] px-5 py-24 sm:px-8">
+    <div class="flex items-baseline gap-4">
+      <span class="font-mono text-[15px] font-extrabold" style="color:var(--brass)">03</span>
+      <h2 class="oju-h2">Why this one is different.</h2>
+    </div>
+
+    <div class="mt-11 flex flex-col">
+      {
+        rows.map((r, i) => (
+          <div
+            class="grid [grid-template-columns:auto_1fr] items-center gap-x-6 gap-y-3 border-t border-line py-6 md:[grid-template-columns:56px_300px_1fr_auto]"
+            class:list={[i === rows.length - 1 && 'border-b']}
+          >
+            <span class="font-mono text-xl font-extrabold" style="color:var(--brass)">
+              {r.n}
+            </span>
+            <span
+              class="text-ink"
+              style="font-family:var(--font-display);font-weight:700;font-size:20px"
+            >
+              {r.title}
+            </span>
+            <span
+              class="col-span-2 text-[15px] text-ink2 md:col-span-1"
+              style="line-height:1.6;text-wrap:pretty"
+            >
+              {r.desc}
+            </span>
+            <span class="col-span-2 md:col-span-1 md:justify-self-end">
+              {r.badges ? (
+                <span class="flex gap-2">
+                  <span
+                    class="rounded-full border border-dashed px-2.5 py-1 font-mono text-[10px] font-semibold text-ink2"
+                    style="border-color:var(--line2)"
+                  >
+                    AWAITING
+                  </span>
+                  <span
+                    class="rounded-full border px-2.5 py-1 font-mono text-[10px] font-semibold"
+                    style="color:var(--watch);border-color:var(--watch)"
+                  >
+                    ✓ REMOVED
+                  </span>
+                </span>
+              ) : (
+                <Icon name={r.icon!} size={40} class="text-ink2" />
+              )}
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

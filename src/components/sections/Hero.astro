@@ -1,0 +1,63 @@
+---
+import HeroEyeStatic from '../vector/HeroEyeStatic.astro';
+import Ticker from '../Ticker.astro';
+---
+
+<header id="top" class="relative overflow-hidden border-b border-line">
+  {/* one subtle parallax layer — decorative construction arc behind the eye */}
+  <div
+    aria-hidden="true"
+    data-parallax="0.18"
+    class="pointer-events-none absolute top-24 -right-24 hidden opacity-[0.5] lg:block"
+  >
+    <svg width="620" height="620" viewBox="0 0 620 620" fill="none">
+      <circle cx="310" cy="310" r="300" stroke-dasharray="4 10" style="stroke:var(--line2)"
+      ></circle>
+      <circle
+        cx="310"
+        cy="620"
+        r="300"
+        stroke-dasharray="4 10"
+        style="stroke:var(--line2);opacity:.5"></circle>
+    </svg>
+  </div>
+
+  <div
+    class="mx-auto grid max-w-[1200px] [grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr))] items-center gap-12 px-5 pt-[132px] pb-16 sm:px-8 sm:pt-[150px]"
+  >
+    <div>
+      <p class="font-mono text-xs font-semibold" style="letter-spacing:0.18em;color:var(--brass)">
+        ANTI-PIRACY INTELLIGENCE · FOR AFRICAN MUSIC &amp; FILM
+      </p>
+      <h1 class="oju-h1 mt-5">The eye that never sleeps.</h1>
+      <p class="mt-6 max-w-[520px] text-lg text-ink2" style="line-height:1.65;text-wrap:pretty">
+        OjuSentinel watches the places piracy actually lives — the Telegram channels, download sites
+        and streams where African releases leak — and moves on what it finds. Built in Lagos, for
+        the people who make the culture.
+      </p>
+      <div class="mt-8 flex flex-col gap-3.5 sm:flex-row">
+        <a
+          href="#cta"
+          class="inline-flex h-[54px] w-full items-center justify-center gap-2.5 rounded-xl px-7 font-body text-[15.5px] font-bold sm:w-auto"
+          style="background:var(--action);color:var(--action-ink)"
+        >
+          Get your free piracy report
+        </a>
+        <a
+          href="#how"
+          class="inline-flex h-[54px] w-full items-center justify-center gap-2.5 rounded-xl border border-line2 px-6 font-body text-[15px] font-semibold text-ink transition-colors hover:bg-s1 sm:w-auto"
+        >
+          See how it works
+        </a>
+      </div>
+    </div>
+
+    <div class="grid place-items-center py-5">
+      <div id="hero-eye" class="oju-hero-eye relative mx-auto w-full" style="max-width:440px">
+        <HeroEyeStatic class="oju-hero-static" />
+      </div>
+    </div>
+  </div>
+
+  <Ticker />
+</header>

@@ -1,0 +1,115 @@
+---
+import NetworkMap from '../vector/illustrations/NetworkMap.astro';
+
+const rows = [
+  {
+    time: '21:00 WAT',
+    text: '“Jaiye Tonight” drops at midnight parties across Lagos.',
+    dot: 'var(--ink)',
+    glow: false,
+    timeColor: 'var(--ink2)',
+    line: 'var(--line2)',
+    lineOpacity: '1',
+  },
+  {
+    time: '+47 MINUTES',
+    text: 'The full MP3 is on a 41,000-member Telegram channel — free.',
+    dot: 'var(--alert)',
+    glow: true,
+    timeColor: 'var(--alert)',
+    line: 'var(--alert)',
+    lineOpacity: '0.35',
+  },
+  {
+    time: '+3 HOURS',
+    text: 'Reshared to three more channels. The audience it steals is the one you built.',
+    dot: 'var(--alert)',
+    glow: true,
+    timeColor: 'var(--alert)',
+    line: 'var(--alert)',
+    lineOpacity: '0.35',
+  },
+  {
+    time: 'NEXT MORNING',
+    text: 'Download sites have it ranked before your own links.',
+    dot: 'var(--alert)',
+    glow: true,
+    timeColor: 'var(--alert)',
+    line: null,
+    lineOpacity: '1',
+  },
+];
+---
+
+<section id="problem" class="relative overflow-hidden border-b border-line">
+  <div class="oju-reveal mx-auto max-w-[1200px] px-5 py-24 sm:px-8" data-punctuate="alert">
+    <div class="flex items-baseline gap-4">
+      <span class="font-mono text-[15px] font-extrabold" style="color:var(--brass)">01</span>
+      <h2 class="oju-h2 max-w-[640px]">Your release night has company.</h2>
+    </div>
+
+    <div
+      class="mt-14 grid [grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))] items-start gap-14"
+    >
+      {/* illustrative timeline */}
+      <div>
+        <div class="font-mono text-[10.5px] tracking-[0.14em] text-mut">
+          AN ILLUSTRATIVE NIGHT — EVERY NAME FICTIONAL
+        </div>
+        <div class="mt-5 flex flex-col">
+          {
+            rows.map((r, i) => (
+              <div class="flex gap-[18px]">
+                <div class="flex flex-col items-center">
+                  <span
+                    class="mt-1 h-[11px] w-[11px] rounded-full"
+                    style={`background:${r.dot};${r.glow ? 'box-shadow:0 0 12px var(--alert-glow);' : ''}`}
+                  />
+                  {r.line && (
+                    <span
+                      class="w-[1.5px] flex-1"
+                      style={`background:${r.line};opacity:${r.lineOpacity}`}
+                    />
+                  )}
+                </div>
+                <div class={i === rows.length - 1 ? '' : 'pb-[26px]'}>
+                  <div class="font-mono text-xs font-semibold" style={`color:${r.timeColor}`}>
+                    {r.time}
+                  </div>
+                  <div
+                    class="mt-1 font-body text-[17px] font-semibold text-ink"
+                    style="line-height:1.35"
+                  >
+                    {r.text}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+        <p class="mt-7 max-w-[460px] text-base text-ink2" style="line-height:1.65;text-wrap:pretty">
+          For Nollywood the shape is worse: a cam rip sold through paywalled channels while the film
+          is still in cinemas. Nobody on your team can watch sixty channels at 3am. Something has
+          to.
+        </p>
+      </div>
+
+      {/* the watched network — not a live map */}
+      <div class="relative">
+        <div class="mb-[18px] font-mono text-[10.5px] tracking-[0.14em] text-mut">
+          THE PLACES IT LIVES — WATCHED
+        </div>
+        <div class="relative overflow-hidden rounded-2xl border border-line bg-s1 p-6">
+          <span
+            aria-hidden="true"
+            class="absolute top-0 bottom-0 w-0.5 animate-[os-sweep-x_7s_ease-in-out_infinite]"
+            style="background:linear-gradient(180deg,transparent,var(--watch),transparent)"></span>
+          <NetworkMap />
+          <div class="mt-2 font-mono text-[10px] tracking-[0.1em] text-mut">
+            ILLUSTRATION — THE KIND OF NETWORK WE WATCH, NOT A LIVE MAP
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

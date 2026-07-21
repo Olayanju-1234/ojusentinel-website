@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/sections/Hero.astro';
+import Problem from '../components/sections/Problem.astro';
+import HowItWorks from '../components/sections/HowItWorks.astro';
+import Different from '../components/sections/Different.astro';
+import Who from '../components/sections/Who.astro';
+import Cta from '../components/sections/Cta.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'OjuSentinel — The eye that never sleeps';
+const description =
+  'Anti-piracy intelligence for African music and film. OjuSentinel watches the Telegram channels, download sites and streams where African releases leak — and moves on what it finds. Built in Lagos.';
+---
+
+<Base title={title} description={description}>
+  <Nav />
+  <main>
+    <Hero />
+    <Problem />
+    <HowItWorks />
+    <Different />
+    <Who />
+    <Cta />
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,226 @@
+---
+import Icon from '../vector/Icon.astro';
+import VerifyMoment from '../vector/illustrations/VerifyMoment.astro';
+
+const steps = [
+  {
+    n: '01',
+    name: 'DETECT',
+    icon: 'detect' as const,
+    acc: 'var(--ink)',
+    desc: 'Sweeps run around the clock across the channels and sites piracy actually uses.',
+  },
+  {
+    n: '02',
+    name: 'VERIFY',
+    icon: 'verify' as const,
+    acc: 'var(--match)',
+    desc: 'Every suspect is fingerprint-matched against your master, then confirmed by a human. False alarms never reach you.',
+  },
+  {
+    n: '03',
+    name: 'REPORT',
+    icon: 'report' as const,
+    acc: 'var(--watch)',
+    desc: 'You authorise; the notice goes out with the evidence pack. Then we tell you the truth about what happens next.',
+  },
+];
+---
+
+<section id="how" class="border-b border-line bg-s1">
+  <div class="oju-reveal mx-auto max-w-[1200px] px-5 py-24 sm:px-8">
+    <div class="flex items-baseline gap-4">
+      <span class="font-mono text-[15px] font-extrabold" style="color:var(--brass)">02</span>
+      <h2 class="oju-h2">Detect. Verify. Report. In the open.</h2>
+    </div>
+
+    <div
+      class="mt-12 grid [grid-template-columns:1fr] items-start gap-9 md:[grid-template-columns:280px_minmax(360px,1fr)]"
+      data-casefile
+    >
+      {/* step chips — the primary, manual control (no auto-advance) */}
+      <div
+        class="flex flex-col gap-2.5"
+        role="tablist"
+        aria-orientation="vertical"
+        aria-label="Case file steps"
+      >
+        {
+          steps.map((s, i) => (
+            <button
+              type="button"
+              role="tab"
+              id={`case-tab-${i}`}
+              aria-controls={`case-panel-${i}`}
+              aria-selected={i === 0 ? 'true' : 'false'}
+              tabindex={i === 0 ? 0 : -1}
+              data-active={i === 0 ? 'true' : 'false'}
+              class="oju-chip rounded-xl border p-[18px_20px] text-left"
+              style={`--acc:${s.acc}`}
+            >
+              <span class="flex items-center gap-3">
+                <Icon name={s.icon} size={26} />
+                <span class="font-mono text-sm font-bold tracking-[0.08em]">
+                  {s.n} {s.name}
+                </span>
+              </span>
+              <span class="mt-2.5 block font-body text-[13.5px] text-ink2" style="line-height:1.55">
+                {s.desc}
+              </span>
+            </button>
+          ))
+        }
+      </div>
+
+      {/* stage — every step's content is present in the DOM */}
+      <div class="relative min-h-[380px] rounded-2xl border border-line bg-s0 p-6 sm:p-8">
+        <div class="flex items-center justify-between gap-3">
+          <span class="font-mono text-[10.5px] tracking-[0.14em] text-mut">
+            AN ILLUSTRATIVE CASE — EVERY NAME AND NUMBER FICTIONAL
+          </span>
+          <span class="shrink-0 font-mono text-[10.5px] text-mut" data-stage-clock>
+            21:52 WAT — SWEEP
+          </span>
+        </div>
+
+        {/* Panel 0 — DETECT */}
+        <div
+          id="case-panel-0"
+          role="tabpanel"
+          aria-labelledby="case-tab-0"
+          data-panel
+          data-active="true"
+          class="mt-6"
+        >
+          <div class="max-w-[480px] overflow-hidden rounded-xl border border-line2 bg-s2">
+            <div class="flex items-center gap-3 border-b border-line p-[13px_16px]">
+              <div
+                class="grid h-8 w-8 place-items-center rounded-full border border-line2 bg-s0 font-body text-[11px] font-semibold text-ink2"
+              >
+                NS
+              </div>
+              <div>
+                <div class="font-body text-[13.5px] font-semibold text-ink">NaijaSoundsFree</div>
+                <div class="font-body text-[11px] text-mut">41,208 members · fictional</div>
+              </div>
+              <span
+                class="ml-auto rounded-full border px-2.5 py-1 font-mono text-[10px] font-semibold"
+                style="color:var(--alert);border-color:var(--alert);opacity:.9"
+              >
+                SUSPECT
+              </span>
+            </div>
+            <div class="p-[14px_16px]">
+              <div
+                class="flex items-center gap-2.5 rounded-[9px] border border-line bg-s0 p-[10px_13px]"
+              >
+                <Icon name="fingerprint" size={22} class="shrink-0 text-ink2" />
+                <span class="font-body text-[13px] text-ink">Kova - Jaiye Tonight (NEW).mp3</span>
+                <span class="ml-auto font-mono text-[10.5px] text-mut">8.2 MB</span>
+              </div>
+              <div class="mt-2.5 font-body text-[12.5px] text-ink2" style="line-height:1.5">
+                “BRAND NEW!! out tonight… download sharp sharp before e go down”
+              </div>
+            </div>
+          </div>
+          <div class="mt-[18px] font-mono text-[11.5px] tracking-[0.08em] text-ink2">
+            POSTED 21:47 · <span style="color:var(--alert)">CAUGHT BY SWEEP 21:52</span> · SCREENSHOT
+            + ARCHIVE STORED AT CAPTURE
+          </div>
+        </div>
+
+        {/* Panel 1 — VERIFY */}
+        <div
+          id="case-panel-1"
+          role="tabpanel"
+          aria-labelledby="case-tab-1"
+          data-panel
+          data-active="false"
+          hidden
+          class="mt-5 flex flex-col items-center"
+        >
+          <VerifyMoment />
+          <div class="mt-1.5 font-display text-[30px] font-extrabold" style="color:var(--match)">
+            A ∩ B — match
+          </div>
+          <div class="mt-2.5 text-center font-mono text-[11.5px] tracking-[0.08em] text-ink2">
+            FINGERPRINT AGREEMENT 96.4% (ILLUSTRATIVE) ·
+            <span style="color:var(--ink)">CONFIRMED BY A HUMAN REVIEWER</span> · 22:00
+          </div>
+        </div>
+
+        {/* Panel 2 — REPORT */}
+        <div
+          id="case-panel-2"
+          role="tabpanel"
+          aria-labelledby="case-tab-2"
+          data-panel
+          data-active="false"
+          hidden
+          class="mt-6"
+        >
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span
+              class="inline-flex items-center gap-2 rounded-full border border-line2 bg-s2 px-4 py-2.5 font-mono text-xs font-semibold text-ink"
+            >
+              AUTHORISED BY YOU
+            </span>
+            <span class="text-mut">→</span>
+            <span
+              class="inline-flex items-center gap-2 rounded-full border border-line2 bg-s2 px-4 py-2.5 font-mono text-xs font-semibold text-ink"
+            >
+              SENT · EVIDENCE ATTACHED
+            </span>
+            <span class="text-mut">→</span>
+            <span
+              class="inline-flex items-center gap-2 rounded-full border border-dashed px-4 py-2.5 font-mono text-xs font-semibold text-ink2"
+              style="border-color:var(--line2)"
+            >
+              AWAITING PLATFORM — SHOWN HONESTLY
+            </span>
+            <span class="text-mut">→</span>
+            <span
+              class="inline-flex items-center gap-2 rounded-full border px-4 py-2.5 font-mono text-xs font-semibold"
+              style="color:var(--watch);border-color:var(--watch)"
+            >
+              ✓ REMOVED — VERIFIED BY RE-SCAN
+            </span>
+          </div>
+          <p
+            class="mt-6 max-w-[560px] text-[15.5px] text-ink2"
+            style="line-height:1.7;text-wrap:pretty"
+          >
+            The notice carries the screenshot, the archived copy, the verified match and your proof
+            of ownership. If the platform sits on it past our 48-hour mark, we refile with the
+            channel's host and ask search engines to de-list the links — automatically, and you
+            watch it happen.
+          </p>
+          <div class="mt-[18px] font-mono text-[11.5px] tracking-[0.08em] text-mut">
+            YOU SEE EVERY STATE — “REPORTED” IS NEVER DRESSED UP AS “REMOVED”.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .oju-chip {
+    color: var(--ink2);
+    background: transparent;
+    border-color: var(--line);
+    cursor: pointer;
+    transition:
+      border-color 0.3s ease,
+      background 0.3s ease,
+      color 0.3s ease;
+  }
+  .oju-chip:hover {
+    border-color: var(--line2);
+  }
+  .oju-chip[data-active='true'] {
+    color: var(--acc);
+    background: var(--s2);
+    border-color: var(--acc);
+  }
+</style>

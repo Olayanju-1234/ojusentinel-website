@@ -1,0 +1,64 @@
+---
+const cols = [
+  {
+    label: 'FILM STUDIOS',
+    title: 'The cam rip in your theatrical window.',
+    body: "A title still in cinemas gets high-sensitivity watching — priority sweeps, sale-flagged listings, and escalation that doesn't wait for permission.",
+    tag: 'THEATRICAL WINDOW · PRIORITY',
+    tagColor: 'var(--action)',
+  },
+  {
+    label: 'RECORD LABELS',
+    title: 'Release night, covered.',
+    body: 'The first hours decide a single’s run. The eye is on the leak channels while your team is at the listening party — and the whole back catalogue stays watched.',
+    tag: 'EVERY RELEASE · EVERY SWEEP',
+    tagColor: 'var(--watch)',
+  },
+  {
+    label: 'INDEPENDENT ARTISTS',
+    title: "You can't watch sixty channels at 3am.",
+    body: 'You shouldn’t have to choose between making the next record and defending the last one. Plain-language reports; you approve every takedown sent in your name.',
+    tag: 'YOUR NAME · YOUR SAY-SO',
+    tagColor: 'var(--watch)',
+  },
+];
+---
+
+<section id="who" class="border-b border-line bg-s1">
+  <div class="oju-reveal mx-auto max-w-[1200px] px-5 py-24 sm:px-8">
+    <div class="flex items-baseline gap-4">
+      <span class="font-mono text-[15px] font-extrabold" style="color:var(--brass)">04</span>
+      <h2 class="oju-h2">Whose work the eye watches.</h2>
+    </div>
+
+    <div
+      class="mt-11 grid [grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))] overflow-hidden rounded-2xl border border-line2"
+    >
+      {
+        cols.map((c, i) => (
+          <div
+            class="bg-s0 p-8"
+            class:list={[i !== cols.length - 1 && 'border-b border-line md:border-r md:border-b-0']}
+          >
+            <div class="font-mono text-[11px] tracking-[0.16em] text-mut">{c.label}</div>
+            <div
+              class="mt-3 text-ink"
+              style="font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1.25"
+            >
+              {c.title}
+            </div>
+            <p class="mt-3 text-[14.5px] text-ink2" style="line-height:1.65;text-wrap:pretty">
+              {c.body}
+            </p>
+            <div
+              class="mt-4 font-mono text-[10.5px] font-medium tracking-[0.08em]"
+              style={`color:${c.tagColor}`}
+            >
+              {c.tag}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

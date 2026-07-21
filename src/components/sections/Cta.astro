@@ -1,0 +1,129 @@
+---
+import EyeMark from '../vector/EyeMark.astro';
+---
+
+<section id="cta" class="relative overflow-hidden">
+  <div
+    class="oju-reveal mx-auto grid max-w-[1200px] [grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))] items-center gap-14 px-5 pt-28 pb-24 sm:px-8"
+  >
+    <div>
+      <div class="flex items-center gap-4">
+        <EyeMark width={56} />
+        <span
+          class="font-mono text-xs font-semibold"
+          style="letter-spacing:0.18em;color:var(--brass)"
+        >
+          THE FREE PIRACY INTELLIGENCE REPORT
+        </span>
+      </div>
+      <h2 class="oju-h2-lg mt-5">See what the eye finds on your catalogue.</h2>
+      <p class="mt-5 max-w-[480px] text-[17px] text-ink2" style="line-height:1.65;text-wrap:pretty">
+        Tell us your label, studio or artist name. We sweep, we verify, and you get a report of
+        where your work is being shared — graded by severity. No contract to see it.
+      </p>
+
+      <form
+        class="mt-7 flex max-w-[520px] flex-col gap-3"
+        method="post"
+        action="/api/report"
+        data-report-form
+      >
+        <label for="report-name" class="sr-only">Your label, studio or artist name</label>
+        <input
+          id="report-name"
+          name="name"
+          type="text"
+          required
+          autocomplete="organization"
+          placeholder="Your label, studio or artist name"
+          class="h-[54px] rounded-xl border border-line2 bg-s1 px-4.5 font-body text-[15px] text-ink placeholder:text-mut"
+        />
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <label for="report-email" class="sr-only">Email for your report</label>
+          <input
+            id="report-email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="Email for your report"
+            class="h-[54px] flex-1 rounded-xl border border-line2 bg-s1 px-4.5 font-body text-[15px] text-ink placeholder:text-mut"
+          />
+          {/* honeypot — real people never fill this */}
+          <input
+            type="text"
+            name="company"
+            tabindex="-1"
+            autocomplete="off"
+            aria-hidden="true"
+            class="absolute h-0 w-0 overflow-hidden opacity-0"
+          />
+          <button
+            type="submit"
+            class="grid h-[54px] shrink-0 place-items-center rounded-xl px-6 font-body text-[15.5px] font-bold whitespace-nowrap"
+            style="background:var(--action);color:var(--action-ink)"
+          >
+            Get the free report
+          </button>
+        </div>
+        <p
+          data-report-status
+          role="status"
+          aria-live="polite"
+          class="min-h-[1.2em] font-mono text-[11.5px] tracking-[0.04em] text-mut"
+        >
+        </p>
+      </form>
+
+      <div class="mt-4 font-mono text-[10.5px] tracking-[0.1em] text-mut">
+        HUMAN-VERIFIED FINDINGS · YOU APPROVE ANYTHING SENT IN YOUR NAME
+      </div>
+    </div>
+
+    {/* SAMPLE report card — every field an em-dash until we've actually found something */}
+    <div class="grid place-items-center">
+      <div
+        class="w-[340px] max-w-full rounded-2xl border border-line2 bg-s1 p-7"
+        style="box-shadow:0 30px 70px -30px rgba(0,0,0,.5);transform:rotate(-1.5deg)"
+      >
+        <div class="flex items-center justify-between">
+          <EyeMark width={40} />
+          <span
+            class="rounded-md border-[1.5px] px-2.5 py-1 font-mono text-[10px] font-bold tracking-[0.14em]"
+            style="color:var(--alert);border-color:var(--alert);transform:rotate(6deg)"
+          >
+            SAMPLE
+          </span>
+        </div>
+        <div
+          class="mt-4 text-ink"
+          style="font-family:var(--font-display);font-weight:700;font-size:21px"
+        >
+          Piracy Intelligence Report
+        </div>
+        <div class="mt-1.5 font-mono text-xs text-mut">PREPARED FOR: YOUR NAME HERE</div>
+        <div class="mt-4 flex flex-col gap-2.5 font-mono text-[11.5px] font-medium">
+          {
+            [
+              'COPIES FOUND',
+              '✦ CRITICAL / ▲ HIGH / ◇ MED / ● LOW',
+              'COMBINED AUDIENCE REACHED',
+              'RECOMMENDED FIRST TAKEDOWNS',
+            ].map((label) => (
+              <div class="flex justify-between gap-3">
+                <span class="text-ink2">{label}</span>
+                <span class="text-ink">—</span>
+              </div>
+            ))
+          }
+        </div>
+        <div
+          class="mt-4 border-t border-line pt-3 font-mono text-[10.5px] text-mut"
+          style="line-height:1.6"
+        >
+          FIELDS FILL WITH YOUR REAL FINDINGS — WE DON'T PUBLISH NUMBERS WE HAVEN'T FOUND.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

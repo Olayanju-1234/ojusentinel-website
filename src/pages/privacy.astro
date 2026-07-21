@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const title = 'Privacy — OjuSentinel';
+const description =
+  'How OjuSentinel handles the information you share when you request a free piracy report.';
+const updated = 'July 2026';
+---
+
+<Base title={title} description={description} path="/privacy">
+  <Nav />
+  <main class="mx-auto max-w-[760px] px-5 pt-32 pb-24 sm:px-8 sm:pt-40">
+    <p class="font-mono text-xs font-semibold" style="letter-spacing:0.18em;color:var(--brass)">
+      PRIVACY NOTICE · UPDATED {updated.toUpperCase()}
+    </p>
+    <h1 class="oju-h2-lg mt-4">What we collect, and why.</h1>
+    <p class="mt-5 text-[17px] text-ink2" style="line-height:1.7;text-wrap:pretty">
+      This notice covers the marketing site. It's written plainly on purpose — the same register as
+      the rest of what we do.
+    </p>
+
+    <div class="mt-10 flex flex-col gap-8">
+      <section>
+        <h2 class="font-display text-[22px] font-bold text-ink">What we collect</h2>
+        <p class="mt-2.5 text-[15.5px] text-ink2" style="line-height:1.7">
+          When you request a free report we collect the <strong class="text-ink">name</strong> you give
+          (your label, studio or artist name) and an <strong class="text-ink">email address</strong>
+          to send the report to. Nothing else — no tracking cookies, no advertising pixels, no third-party
+          analytics that identify you.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[22px] font-bold text-ink">Why we collect it</h2>
+        <p class="mt-2.5 text-[15.5px] text-ink2" style="line-height:1.7">
+          Solely to run the sweep you asked for and send you the results. Your details are the
+          lawful basis of a request you initiated; we don't use them for anything you didn't ask
+          for.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[22px] font-bold text-ink">How long we keep it</h2>
+        <p class="mt-2.5 text-[15.5px] text-ink2" style="line-height:1.7">
+          Only as long as needed to deliver your report and follow up on it. Ask us to delete it at
+          any time and we will.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[22px] font-bold text-ink">Your rights</h2>
+        <p class="mt-2.5 text-[15.5px] text-ink2" style="line-height:1.7">
+          Under Nigeria's NDPR and the EU/UK GDPR you can ask to see, correct, or delete the
+          information we hold about you, and withdraw consent at any time. We don't sell your data
+          or share it with advertisers.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[22px] font-bold text-ink">Contact</h2>
+        <p class="mt-2.5 text-[15.5px] text-ink2" style="line-height:1.7">
+          Email <a
+            class="text-ink underline underline-offset-4"
+            href="mailto:privacy@ojusentinel.com">privacy@ojusentinel.com</a
+          > and a human will answer. Made in Lagos.
+        </p>
+      </section>
+    </div>
+
+    <p class="mt-12 font-mono text-[11px] tracking-[0.08em] text-mut">
+      ALL PRODUCT SCENES &amp; TELEMETRY ON THIS SITE ARE ILLUSTRATIVE.
+    </p>
+  </main>
+  <Footer />
+</Base>
