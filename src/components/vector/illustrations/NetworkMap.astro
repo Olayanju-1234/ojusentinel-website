@@ -1,0 +1,52 @@
+---
+/*
+  The watched network — nodes are eyes, links share the aperture curvature,
+  threat nodes and their links go --alert. Illustration only: labelled in the
+  Problem section as "not a live map". Static SVG; the sweep bar is an overlay
+  the section adds, gated by motion.
+*/
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+
+type State = 'watch' | 'alert';
+const node = (x: number, y: number, label: string, lx: number, ly: number, state: State) => {
+  const ring = state === 'alert' ? 'var(--alert)' : 'var(--ink2)';
+  const core = state === 'alert' ? 'var(--alert)' : 'var(--watch)';
+  const text = state === 'alert' ? 'var(--alert)' : 'var(--mut)';
+  return `
+    <g>
+      <path d="M${x - 18} ${y} A20.5 20.5 0 0 1 ${x + 18} ${y} A20.5 20.5 0 0 1 ${x - 18} ${y} Z" style="fill:var(--s0);stroke:${ring}" stroke-width="2"/>
+      <circle cx="${x}" cy="${y}" r="3.5" style="fill:${core}"/>
+      <text x="${lx}" y="${ly}" font-family="IBM Plex Mono, monospace" font-size="9.5" letter-spacing="1" style="fill:${text}">${label}</text>
+    </g>`;
+};
+
+const links = `
+  <path d="M96 86 Q 180 46 260 98" fill="none" stroke-width="1.5" style="stroke:var(--line2)"/>
+  <path d="M260 98 Q 330 140 408 106" fill="none" stroke-width="1.5" style="stroke:var(--line2)"/>
+  <path d="M96 86 Q 140 164 232 186" fill="none" stroke-width="1.5" style="stroke:var(--line2)"/>
+  <path d="M232 186 Q 320 212 408 106" fill="none" stroke-width="1.5" style="stroke:var(--alert);opacity:.5"/>
+  <path d="M408 106 Q 442 176 388 212" fill="none" stroke-width="1.5" style="stroke:var(--alert);opacity:.5"/>`;
+
+const nodes = [
+  node(96, 86, 'TG · MUSIC', 66, 122, 'watch'),
+  node(260, 98, 'TG · FILM', 240, 74, 'watch'),
+  node(232, 186, 'FILE HOST', 202, 222, 'watch'),
+  node(408, 106, 'LEAK FOUND', 382, 82, 'alert'),
+  node(388, 212, 'RESHARE — TRACED', 346, 248, 'alert'),
+].join('');
+---
+
+<svg
+  class={cls}
+  width="100%"
+  height="280"
+  viewBox="0 0 504 280"
+  role="img"
+  aria-label="An illustration of a watched network: music and film channels and a file host under watch, with a leak and a traced reshare flagged."
+  xmlns="http://www.w3.org/2000/svg"
+  style="display:block;overflow:visible"
+  set:html={links + nodes}
+/>

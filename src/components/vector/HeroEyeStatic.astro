@@ -1,0 +1,95 @@
+---
+/*
+  Static hero eye — the full vesica construction as inline SVG. Two roles:
+    1. first paint of the hero eye slot (so LCP/first paint never wait on WebGL);
+    2. the permanent eye on the low-power / no-WebGL / reduced-motion path.
+  When a capable device loads the Three.js island it fades this out and mounts a
+  canvas on top; otherwise this is the eye. Breathing is CSS-only and dies under
+  prefers-reduced-motion via the global guard.
+*/
+interface Props {
+  class?: string;
+  id?: string;
+}
+const { class: cls, id } = Astro.props;
+---
+
+<svg
+  id={id}
+  class={cls}
+  width="420"
+  height="300"
+  viewBox="0 0 420 300"
+  role="img"
+  aria-label="The OjuSentinel eye — a vesica watch mark, two recordings agreeing"
+  xmlns="http://www.w3.org/2000/svg"
+  style="width:100%;height:auto;max-width:440px;display:block;overflow:visible"
+>
+  <defs>
+    <filter id="oju-hero-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="9"></feGaussianBlur>
+    </filter>
+  </defs>
+
+  <!-- construction: the two circles whose intersection is the aperture -->
+  <circle
+    cx="210"
+    cy="410"
+    r="286"
+    fill="none"
+    stroke-width="1"
+    stroke-dasharray="4 7"
+    style="stroke:var(--line2);opacity:.5"></circle>
+  <circle
+    cx="210"
+    cy="-110"
+    r="286"
+    fill="none"
+    stroke-width="1"
+    stroke-dasharray="4 7"
+    style="stroke:var(--line2);opacity:.5"></circle>
+
+  <!-- aperture = A ∩ B, and its inner echo -->
+  <path
+    d="M32 150 A286 286 0 0 1 388 150 A286 286 0 0 1 32 150 Z"
+    fill="none"
+    stroke-width="4"
+    style="stroke:var(--brass)"></path>
+  <path
+    d="M52 150 A258 258 0 0 1 368 150 A258 258 0 0 1 52 150 Z"
+    fill="none"
+    stroke-width="1.2"
+    style="stroke:var(--brass);opacity:.4"></path>
+
+  <!-- scan line through the aperture -->
+  <line x1="0" y1="150" x2="32" y2="150" stroke-width="2" style="stroke:var(--ink2)"></line>
+  <line x1="388" y1="150" x2="420" y2="150" stroke-width="2" style="stroke:var(--ink2)"></line>
+
+  <!-- iris: brass ring + its echo + the one status-true core, breathing -->
+  <circle cx="210" cy="150" r="75" fill="none" stroke-width="3" style="stroke:var(--brass)"
+  ></circle>
+  <circle
+    cx="210"
+    cy="150"
+    r="61"
+    fill="none"
+    stroke-width="1"
+    style="stroke:var(--brass);opacity:.45"></circle>
+  <g
+    class="oju-hero-iris"
+    style="transform-box:fill-box;transform-origin:center;animation:os-breathe 4.4s ease-in-out infinite"
+  >
+    <circle
+      cx="210"
+      cy="150"
+      r="30"
+      filter="url(#oju-hero-glow)"
+      style="fill:var(--watch);opacity:.5"></circle>
+    <circle
+      cx="210"
+      cy="150"
+      r="22"
+      data-oju-iris
+      style="fill:var(--watch);transition:fill .5s ease"></circle>
+  </g>
+</svg>

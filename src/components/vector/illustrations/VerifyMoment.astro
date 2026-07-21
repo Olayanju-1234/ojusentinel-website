@@ -1,0 +1,94 @@
+---
+/*
+  The verify moment — your master and the found copy converge; where they agree
+  the vesica ignites. --match is earned only here. The controller toggles
+  `.is-match` on the root to converge; separation/ignition run on transform +
+  opacity (transitionable everywhere, unlike CSS cx). Under reduced-motion the
+  matched state shows immediately (global guard kills the transitions).
+*/
+interface Props {
+  class?: string;
+  id?: string;
+}
+const { class: cls, id } = Astro.props;
+---
+
+<svg
+  id={id}
+  class:list={['oju-verify', cls]}
+  width="420"
+  height="220"
+  viewBox="0 0 420 220"
+  role="img"
+  aria-label="Two waveforms — your master and the found copy — converge into a verified match."
+  xmlns="http://www.w3.org/2000/svg"
+  style="width:100%;height:auto;max-width:420px;display:block"
+>
+  <circle
+    class="v-master"
+    cx="210"
+    cy="110"
+    r="72"
+    fill="none"
+    stroke-width="2.5"
+    style="stroke:var(--ink2)"></circle>
+  <circle
+    class="v-found"
+    cx="210"
+    cy="110"
+    r="72"
+    fill="none"
+    stroke-width="2.5"
+    style="stroke:var(--match)"></circle>
+  <path
+    class="v-lens"
+    d="M210 51.4 A72 72 0 0 1 210 168.6 A72 72 0 0 1 210 51.4 Z"
+    stroke-width="2.5"
+    style="fill:var(--match-glow);stroke:var(--match)"></path>
+  <circle class="v-core" cx="210" cy="110" r="10" style="fill:var(--match)"></circle>
+  <text
+    x="86"
+    y="34"
+    font-family="IBM Plex Mono, monospace"
+    font-size="10"
+    letter-spacing="1.5"
+    style="fill:var(--ink2)">YOUR MASTER</text
+  >
+  <text
+    x="258"
+    y="34"
+    font-family="IBM Plex Mono, monospace"
+    font-size="10"
+    letter-spacing="1.5"
+    style="fill:var(--match)">FOUND COPY</text
+  >
+</svg>
+
+<style>
+  .v-master {
+    transform: translateX(-90px);
+    transition: transform 0.5s ease;
+  }
+  .v-found {
+    transform: translateX(90px);
+    transition: transform 0.5s ease;
+  }
+  .v-lens {
+    opacity: 0;
+    transition: opacity 0.45s ease 0.2s;
+  }
+  .v-core {
+    opacity: 0;
+    transition: opacity 0.4s ease 0.45s;
+  }
+  .oju-verify.is-match .v-master {
+    transform: translateX(-36px);
+  }
+  .oju-verify.is-match .v-found {
+    transform: translateX(36px);
+  }
+  .oju-verify.is-match .v-lens,
+  .oju-verify.is-match .v-core {
+    opacity: 1;
+  }
+</style>
