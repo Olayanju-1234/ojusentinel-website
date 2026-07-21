@@ -1,0 +1,30 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.astro/
+
+# cloudflare
+.wrangler/
+
+# environment & secrets
+.env
+.env.*
+!.env.example
+
+# editor / agent — never commit
+.claude/
+memory/
+.vscode/
+
+# os
+.DS_Store
+**/.DS_Store
+
+# logs
+*.log
+npm-debug.log*
+
+# design reference exports (kept locally, not shippable source)
+_design-reference:/

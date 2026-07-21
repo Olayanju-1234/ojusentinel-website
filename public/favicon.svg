@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    :root { --f: #c39b62; }
+    @media (prefers-color-scheme: light) { :root { --f: #8f6c35; } }
+  </style>
+  <!-- aperture (vesica) + ring + status-true core -->
+  <path d="M2 16 A17 17 0 0 1 30 16 A17 17 0 0 1 2 16 Z" fill="none" stroke="var(--f)" stroke-width="2.5" stroke-linecap="butt"/>
+  <circle cx="16" cy="16" r="7" fill="none" stroke="var(--f)" stroke-width="2"/>
+  <circle cx="16" cy="16" r="3.2" fill="#3ddc97"/>
+</svg>

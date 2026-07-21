@@ -1,0 +1,311 @@
+@import 'tailwindcss';
+@import './fonts.css';
+
+/*
+  One structure, two worlds. Components never branch on theme — they re-ink.
+  Dark is the default (night watch); light is re-inked (daylight).
+  Default with no explicit choice follows the OS via prefers-color-scheme;
+  the manual toggle sets [data-theme] on <html> and persists.
+*/
+
+:root {
+  /* surfaces + ink — dark / night watch */
+  --s0: #080c10;
+  --s1: #11171d;
+  --s2: #161e26;
+  --ink: #f0eee6;
+  --ink2: #9fb1bf;
+  --mut: #5e7284;
+  --line: rgba(138, 165, 190, 0.16);
+  --line2: rgba(138, 165, 190, 0.3);
+
+  /* identity + earned semantics */
+  --brass: #c39b62;
+  --watch: #3ddc97;
+  --alert: #ff5d5d;
+  --match: #9b8cff;
+  --action: #f2b544;
+  --action-ink: #141008;
+  --watch-glow: rgba(61, 220, 151, 0.55);
+  --alert-glow: rgba(255, 93, 93, 0.55);
+  --match-glow: rgba(155, 140, 255, 0.55);
+
+  /* composed tokens (avoid runtime color-mix for old Android WebView) */
+  --nav-bg: rgba(8, 12, 16, 0.86);
+
+  color-scheme: dark;
+}
+
+/* explicit light */
+:root[data-theme='light'] {
+  --s0: #f6f3ec;
+  --s1: #ffffff;
+  --s2: #ede8dd;
+  --ink: #1b242d;
+  --ink2: #55636f;
+  --mut: #7a8694;
+  --line: rgba(31, 42, 52, 0.14);
+  --line2: rgba(31, 42, 52, 0.3);
+
+  --brass: #8f6c35;
+  --watch: #138c5e;
+  --alert: #c62c2c;
+  --match: #5e4ad5;
+  --action: #a47416;
+  --action-ink: #fff8ec;
+  --watch-glow: rgba(19, 140, 94, 0.35);
+  --alert-glow: rgba(198, 44, 44, 0.35);
+  --match-glow: rgba(94, 74, 213, 0.35);
+
+  --nav-bg: rgba(246, 243, 236, 0.86);
+
+  color-scheme: light;
+}
+
+/* OS-preference default when the visitor hasn't explicitly chosen dark */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    --s0: #f6f3ec;
+    --s1: #ffffff;
+    --s2: #ede8dd;
+    --ink: #1b242d;
+    --ink2: #55636f;
+    --mut: #7a8694;
+    --line: rgba(31, 42, 52, 0.14);
+    --line2: rgba(31, 42, 52, 0.3);
+
+    --brass: #8f6c35;
+    --watch: #138c5e;
+    --alert: #c62c2c;
+    --match: #5e4ad5;
+    --action: #a47416;
+    --action-ink: #fff8ec;
+    --watch-glow: rgba(19, 140, 94, 0.35);
+    --alert-glow: rgba(198, 44, 44, 0.35);
+    --match-glow: rgba(94, 74, 213, 0.35);
+
+    --nav-bg: rgba(246, 243, 236, 0.86);
+
+    color-scheme: light;
+  }
+}
+
+/* Expose semantic tokens to Tailwind utilities (inline → utilities reference the
+   live var(), so they re-ink at runtime with the theme). */
+@theme inline {
+  --color-s0: var(--s0);
+  --color-s1: var(--s1);
+  --color-s2: var(--s2);
+  --color-ink: var(--ink);
+  --color-ink2: var(--ink2);
+  --color-mut: var(--mut);
+  --color-line: var(--line);
+  --color-line2: var(--line2);
+  --color-brass: var(--brass);
+  --color-watch: var(--watch);
+  --color-alert: var(--alert);
+  --color-match: var(--match);
+  --color-action: var(--action);
+  --color-action-ink: var(--action-ink);
+
+  --font-display: 'Syne', 'Syne Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Instrument Sans', 'Instrument Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', monospace;
+
+  --breakpoint-xs: 30rem;
+}
+
+/*
+  Fallback metrics — trims the swap reflow (CLS) when the real fonts arrive.
+  Metrics approximated against Arial / system so hero text barely shifts.
+*/
+@font-face {
+  font-family: 'Syne Fallback';
+  src: local('Arial');
+  ascent-override: 88%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+  size-adjust: 112%;
+}
+@font-face {
+  font-family: 'Instrument Fallback';
+  src: local('Arial');
+  ascent-override: 96%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--s0);
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--brass);
+    color: var(--s0);
+  }
+  :focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* Display headings — one place for the Syne treatment. Stepped to 700 / −0.02em
+   so the hero reads authoritative, not playful, and holds gravity in light mode;
+   section headings match for a coherent type system. */
+.oju-h1,
+.oju-h2,
+.oju-h2-lg {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0;
+}
+.oju-h1 {
+  font-size: clamp(44px, 6.5vw, 82px);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.oju-h2 {
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.08;
+}
+.oju-h2-lg {
+  font-size: clamp(34px, 4.4vw, 54px);
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+/* Motion — every keyframe honours the checkpoint discipline. */
+@keyframes os-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.16);
+    opacity: 1;
+  }
+}
+@keyframes os-tick {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+/* A thin bar that actually traverses its container (the design approximated this
+   with translateX% on a 2px element, which barely moves). `left` is universally
+   supported — cheaper than container-query units on old Android WebView. */
+@keyframes os-sweep-x {
+  0% {
+    left: -2%;
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    left: 102%;
+    opacity: 0;
+  }
+}
+
+/* ---------- Interaction layer (controller-driven classes) ---------- */
+
+/* Sweep-reveal — only with JS and only when motion is allowed, so content is
+   never left invisible (no-JS shows everything; reduced-motion shows everything). */
+html.js:not(.reduced) .oju-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+  will-change: opacity, transform;
+}
+.oju-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Persistent eye — dock the hero eye into the nav mark on scroll. */
+.oju-nav-eye {
+  opacity: 0;
+  transform: scale(0.6);
+  transform-origin: left center;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+html[data-docked] .oju-nav-eye {
+  opacity: 1;
+  transform: scale(1);
+}
+.oju-hero-eye {
+  position: relative;
+  transition:
+    opacity 0.5s ease,
+    transform 0.6s ease;
+}
+html[data-docked] .oju-hero-eye {
+  opacity: 0.25;
+  transform: scale(0.92) translateY(-8px);
+}
+
+/* Case-file panel entrance (≤350ms, cosmetic — content is present regardless). */
+@keyframes os-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+[data-panel][data-active='true'] {
+  animation: os-panel-in 0.34s ease both;
+}
+
+/* Section-header brass sweep line (GSAP scrubs --sweep; full by default). */
+.oju-sweepline {
+  height: 1px;
+  width: var(--sweep, 100%);
+  background: var(--brass);
+  opacity: 0.5;
+}
+
+/* Full static fallback — the whole page holds still, nothing gates reading. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

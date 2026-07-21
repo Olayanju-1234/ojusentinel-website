@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogImage?: string;
+}
+
+const { title, description, path = '/', ogImage = '/og.png' } = Astro.props;
+const site = (Astro.site?.toString() ?? 'https://ojusentinel.com').replace(/\/$/, '');
+const canonical = `${site}${path}`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {
+      /* Pre-paint, no flash: apply any saved theme, mark that JS is present (so the
+        reveal-hidden state only applies with JS), and mark reduced-motion (so the
+        hidden state never applies and content can never get stuck invisible).
+        With no saved theme the attribute stays off and CSS follows the OS. */
+    }
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.add('js');
+        try {
+          var p = new URLSearchParams(location.search).get('theme');
+          var t = p === 'light' || p === 'dark' ? p : localStorage.getItem('oju-theme');
+          if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+        } catch (e) {}
+        try {
+          if (matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('reduced');
+        } catch (e) {}
+        // Failsafe: if the module bundle never claims the reveal job (flaky
+        // network, JS error, old browser), reveal everything so content is never
+        // stranded hidden. Runs from the guaranteed inline script, not the bundle.
+        setTimeout(function () {
+          if (d.classList.contains('reveal-js')) return;
+          var els = document.querySelectorAll('.oju-reveal');
+          for (var i = 0; i < els.length; i++) els[i].classList.add('is-in');
+        }, 2500);
+      })();
+    </script>
+
+    {
+      /* Only the two above-the-fold faces are preloaded; the rest load on demand
+        via unicode-range. */
+    }
+    <link
+      rel="preload"
+      href="/fonts/syne-800-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/instrument-sans-400-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* single theme-color, kept in sync with the effective theme by theme.ts */}
+    <meta name="theme-color" content="#080C10" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="OjuSentinel" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${site}${ogImage}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${site}${ogImage}`} />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/main';
+    </script>
+  </body>
+</html>
