@@ -13,11 +13,13 @@ const links = [
   style="background:var(--nav-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);"
   aria-label="Primary"
 >
-  <div class="mx-auto flex h-16 max-w-[1200px] items-center gap-4 px-5 sm:gap-6 sm:px-8">
+  <div class="mx-auto flex h-16 max-w-[1200px] items-center gap-2 px-4 sm:gap-6 sm:px-8">
     <a href="#top" class="flex min-w-0 items-center gap-2.5" aria-label="OjuSentinel — home">
-      <EyeMark width={34} class="oju-nav-eye shrink-0" />
+      {/* The eye docks into the nav on ≥sm only — on phones the bar is too tight
+          to spare its width, and it still persists in the hero + CTA. */}
+      <EyeMark width={34} class="oju-nav-eye hidden shrink-0 sm:block" />
       <span
-        class="font-display text-[13.5px] font-extrabold tracking-[0.03em] text-ink sm:text-[15px]"
+        class="min-w-0 truncate font-display text-[13.5px] font-extrabold tracking-[0.03em] text-ink sm:text-[15px]"
       >
         <span style="color:var(--brass)">OJU</span>SENTINEL
       </span>
@@ -42,7 +44,7 @@ const links = [
         data-theme-toggle
         aria-label="Toggle light or dark theme"
         aria-pressed="false"
-        class="mx-1 grid h-9 w-9 shrink-0 place-items-center rounded-[9px] border border-line2 text-ink2 transition-colors hover:border-ink2 hover:text-ink sm:mx-1.5"
+        class="mx-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-[9px] border border-line2 text-ink2 transition-colors hover:border-ink2 hover:text-ink sm:mx-1.5 sm:h-9 sm:w-9"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
           <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
