@@ -17,7 +17,20 @@ export function initCaseFile(): void {
   const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
   const clock = root.querySelector<HTMLElement>('[data-stage-clock]');
   const verify = root.querySelector<HTMLElement>('.oju-verify');
+  const stage = root.querySelector<HTMLElement>('[data-stage]');
   if (!tabs.length) return;
+
+  // On narrow screens the stage sits well below the chips; when a chip is tapped
+  // we bring the stage into view so the change is actually seen.
+  const revealStage = (): void => {
+    if (!stage) return;
+    const r = stage.getBoundingClientRect();
+    const offscreen = r.top > window.innerHeight * 0.6 || r.bottom < window.innerHeight * 0.3;
+    if (offscreen) {
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      stage.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    }
+  };
 
   const select = (i: number, focus = false): void => {
     tabs.forEach((t, n) => {
@@ -38,7 +51,10 @@ export function initCaseFile(): void {
   };
 
   tabs.forEach((tab, i) => {
-    tab.addEventListener('click', () => select(i));
+    tab.addEventListener('click', () => {
+      select(i);
+      revealStage();
+    });
     tab.addEventListener('keydown', (e: KeyboardEvent) => {
       let next = -1;
       if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next = (i + 1) % tabs.length;
